@@ -1,0 +1,20 @@
+{
+  "name": "node-fetch-backoff",
+  "version": "0.0.1",
+  "description": "A persistent version of fetch",
+  "main": "src/index.js",
+  "dependencies": {
+    "debug": "3.1.0",
+    "node-fetch": "2.2.0"
+  },
+  "devDependencies": {
+    "eslint": "5.5.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.14.0"
+  },
+  "scripts": {
+    "lint": "eslint src"
+  },
+  "author": "Jesper Birkestrøm <jbi@birkestroem.dk>",
+  "license": "MIT"
+}
