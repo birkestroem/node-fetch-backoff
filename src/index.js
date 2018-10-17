@@ -19,27 +19,37 @@ function backoffFetch(config = {}) {
     attempts += 1;
 
     return new Promise((resolve, reject) => setTimeout(
-      () => internalFetch(url, options).then(resolve, reject),
+      () => fetch(url, options).then(resolve, reject),
       timeout(attempts),
     ));
   }
 
-  function fetch(url, options) {
-    const method = (options && options.method) || 'GET';
-    const debug = debugFactory(`backoff-fetch:${method} ${url}`);
-    return internalFetch(url, options)
+  function fetch(url, options = {}) {
+    console.log('OPTS', options)
+    const method = options.method || 'GET';
+    const debug = debugFactory(`backoff-fetch:${options.requestId||method} to ${url}`);
+
+    console.log(url, options);
+    return internalFetch(url, options = {})
       .then((resp) => {
+        const rateLimitText = options.extraText ? options.extraText(resp) : '';
+
         if (attempts >= retries) {
-          debug('Too many retries, giving up');
+          resp.text().then((text) => {
+            debug(`Too many retries, giving up. [HTTP ${resp.status}](${rateLimitText}) - ${text}`);
+          });
           return resp;
         }
 
         if (isOK(resp)) {
-          debug(`Successful response after ${attempts + 1} attempts`);
+          debug(`Successful response after ${attempts + 1} attempts. [HTTP ${resp.status}](${rateLimitText})`);
           return resp;
         }
 
-        debug(`Not successful, backing off. ${retries - attempts} attempts left. [HTTP ${resp.status}]`);
+        resp.text().then((text) => {
+          debug(`Not successful, backing off. ${retries - attempts} attempts left. Waiting for ${timeout(attempts+1)}. \
+[HTTP ${resp.status}](${rateLimitText}) - ${text}`);
+        });
         return retry(url, options);
       })
       .catch((error) => {
