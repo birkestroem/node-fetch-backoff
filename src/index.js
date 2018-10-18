@@ -28,7 +28,7 @@ function backoffFetch(config = {}) {
     const method = options.method || 'GET';
     const debug = debugFactory(`backoff-fetch:${options.requestId||method} to ${url}`);
 
-    return internalFetch(url, options = {})
+    return internalFetch(url, options)
       .then((resp) => {
         const rateLimitText = options.extraText ? options.extraText(resp) : '';
 
