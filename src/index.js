@@ -26,11 +26,11 @@ function backoffFetch(config = {}) {
 
   function fetch(url, options = {}) {
     const method = options.method || 'GET';
-    const debug = debugFactory(`backoff-fetch:${options.requestId||method} to ${url}`);
+    const debug = options.debug || debugFactory(`backoff-fetch:${options.requestId||method} to ${url}`);
 
     return internalFetch(url, options)
       .then((resp) => {
-        const extraText = options.extraText ? ` (${options.extraText(resp)})` : '';
+        const extraText = options.debugText ? ` (${options.debugText(resp)})` : '';
 
         if (attempts >= retries) {
           resp.text().then((text) => {

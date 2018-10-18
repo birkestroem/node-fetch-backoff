@@ -10,10 +10,13 @@
   "devDependencies": {
     "eslint": "5.5.0",
     "eslint-config-airbnb-base": "13.1.0",
-    "eslint-plugin-import": "2.14.0"
+    "eslint-plugin-import": "2.14.0",
+    "jest": "23.6.0",
+    "nock": "10.0.1"
   },
   "scripts": {
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
