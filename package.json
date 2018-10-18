@@ -1,6 +1,6 @@
 {
   "name": "node-fetch-backoff",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A persistent version of fetch",
   "main": "src/index.js",
   "dependencies": {
