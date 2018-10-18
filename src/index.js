@@ -30,23 +30,23 @@ function backoffFetch(config = {}) {
 
     return internalFetch(url, options)
       .then((resp) => {
-        const rateLimitText = options.extraText ? options.extraText(resp) : '';
+        const extraText = options.extraText ? ` (${options.extraText(resp)})` : '';
 
         if (attempts >= retries) {
           resp.text().then((text) => {
-            debug(`Too many retries, giving up. [HTTP ${resp.status}](${rateLimitText}) - ${text}`);
+            debug(`Too many retries, giving up. [HTTP ${resp.status}]${extraText} - ${text}`);
           });
           return resp;
         }
 
         if (isOK(resp)) {
-          debug(`Successful response after ${attempts + 1} attempts. [HTTP ${resp.status}](${rateLimitText})`);
+          debug(`Successful response after ${attempts + 1} attempts. [HTTP ${resp.status}]${extraText}`);
           return resp;
         }
 
         resp.text().then((text) => {
           debug(`Not successful, backing off. ${retries - attempts} attempts left. Waiting for ${timeout(attempts+1)}. \
-[HTTP ${resp.status}](${rateLimitText}) - ${text}`);
+[HTTP ${resp.status}]${extraText} - ${text}`);
         });
         return retry(url, options);
       })
