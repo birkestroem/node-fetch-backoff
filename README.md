@@ -11,7 +11,7 @@ const fetch = bfFetchFactory({
 
     // Default is a function that reads the ok property of the response object.
     // The function gets passed the response.
-    isOK: resp => resp.ok,
+    isOK: (resp) => resp.ok,
 
     // Function that gets the error passed in to deside if it should retry.
     shouldRetryError: (error) => true,
