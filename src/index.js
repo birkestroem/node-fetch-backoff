@@ -1,13 +1,13 @@
 const debugFactory = require('debug');
 const nodeFetch = require('node-fetch');
 
-const exponential = delay => (attempts => (attempts * attempts) * delay);
+const exponential = (delay) => ((attempts) => (attempts * attempts) * delay);
 
 function backoffFetch(config = {}) {
   const {
     delay = 10 * 1000,
     retries = 5,
-    isOK = resp => resp.ok,
+    isOK = (resp) => resp.ok,
     shouldRetryError = () => true,
   } = config;
 
