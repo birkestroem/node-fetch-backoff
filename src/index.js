@@ -26,7 +26,7 @@ function backoffFetch(config = {}) {
 
   function fetch(url, options = {}) {
     const method = options.method || 'GET';
-    const debug = options.debug || debugFactory(`backoff-fetch:${options.requestId||method} to ${url}`);
+    const debug = options.debug || debugFactory(`backoff-fetch:${options.requestId || method} to ${url}`);
 
     return internalFetch(url, options)
       .then((resp) => {
@@ -45,7 +45,7 @@ function backoffFetch(config = {}) {
         }
 
         resp.text().then((text) => {
-          debug(`Not successful, backing off. ${retries - attempts} attempts left. Waiting for ${timeout(attempts+1)}. \
+          debug(`Not successful, backing off. ${retries - attempts} attempts left. Waiting for ${timeout(attempts + 1)}. \
 [HTTP ${resp.status}]${extraText} - ${text}`);
         });
         return retry(url, options);
