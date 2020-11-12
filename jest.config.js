@@ -1,6 +1,6 @@
 module.exports = {
   clearMocks: true,
   coverageDirectory: "coverage",
-  coverageReporters: ["json", "html"],
+  coverageReporters: ["lcov", "html"],
   testEnvironment: "node",
 };

@@ -4,6 +4,7 @@
   "description": "A persistent version of fetch",
   "main": "src/index.js",
   "dependencies": {
+    "coveralls": "3.1.0",
     "debug": "4.2.0",
     "node-fetch": "2.6.1"
   },
@@ -16,6 +17,7 @@
     "nock": "13.0.5"
   },
   "scripts": {
+    "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "lint": "eslint src",
     "test": "jest"
   },
