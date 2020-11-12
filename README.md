@@ -1,8 +1,8 @@
 ## Basic usage example
 
 ```js
-const bfFetchFactory = require('node-fetch-backoff');
-const fetch = bfFetchFactory({
+const fbFactory = require('node-fetch-backoff');
+const fetch = fbFactory({
     // Msec or function. Default is exponential delay using msec from this option.
     delay: 10 * 1000,
 
