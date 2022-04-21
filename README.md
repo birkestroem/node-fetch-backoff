@@ -20,6 +20,9 @@ const fetch = nfbFactory({
     // Function that gets the error passed in to deside if it should retry.
     shouldRetryError: (error) => true,
 
+    // Function that gets the response passed in to deside if it should retry.
+    shouldRetryResponse = () => true,
+
     // The fetch implementation to use. If not provided it will require node-fetch.
     fetch: undefined,
 });

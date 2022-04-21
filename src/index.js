@@ -9,6 +9,7 @@ function backoffFetch(config = {}) {
     retries = 5,
     isOK = (resp) => resp.ok,
     shouldRetryError = () => true,
+    shouldRetryResponse = () => true,
   } = config;
 
   const internalFetch = config.fetch || nodeFetch;
@@ -48,7 +49,7 @@ function backoffFetch(config = {}) {
           debug(`Not successful, backing off. ${retries - attempts} attempts left. Waiting for ${timeout(attempts + 1)}. \
 [HTTP ${resp.status}]${extraText} - ${text}`);
         });
-        return retry(url, options);
+        return shouldRetryResponse(resp) && retry(url, options);
       })
       .catch((error) => {
         if (attempts >= retries) {
